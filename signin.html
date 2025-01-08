@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="signin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section (for existing users) -->
+        <div class="srmiggy-text">
+            <span>SRMIGGY</span>
+        </div>
+        <div class="left-section">
+            <img src="srmlogo.png" alt="SRM Logo" class="logo">
+            <h1>Welcome Back!</h1>
+            <p>Sign in to continue your order at SRMIGGY.</p>
+            <form>
+                <div class="input-group">
+                    <label for="netid">SRM Net ID</label>
+                    <input type="text" id="netid" placeholder="Enter SRM Net ID">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="password" placeholder="Enter Password">
+                        <span class="eye-icon" id="togglePassword" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <button class="arrow-btn" type="submit">Sign In</button>
+            </form>
+            <p class="alt-signin">or</p>
+            <div class="social-btns">
+                <button class="google-btn">
+                    <img src="google.jpg" alt="Google Icon" class="icon"> Sign In with Google
+                </button>
+                <button class="microsoft-btn">
+                    <img src="microsoft.png" alt="Microsoft Icon" class="icon"> Sign In with Microsoft
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Section (for new users) -->
+        <div class="right-section">
+            <h2 class="new-user-title">New User?</h2>
+            <p class="signup-text">Create an account to start ordering!</p>
+            <div class="social-btns">
+                <button class="google-btn signup-btn">
+                    <img src="google.jpg" alt="Google Icon" class="icon"> Sign Up via Google
+                </button>
+                <button class="microsoft-btn signup-btn">
+                    <img src="microsoft.png" alt="Microsoft Icon" class="icon"> Sign Up via Microsoft
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="signin.js"></script>
+</body>
+</html>

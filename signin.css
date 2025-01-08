@@ -1,0 +1,316 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-image: url('signinbg1.jpg'); /* Add your background image here */
+    background-size: cover; /* Cover the entire screen */
+    background-position: center; /* Center the image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative; /* Allows for overlay */
+}
+
+/* Container */
+.container {
+    display: flex;
+    position: relative; /* Allows absolute positioning for the srmiggy-text */
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+}
+.password-container {
+    position: relative; /* Position relative for the eye icon */
+}
+
+.eye-icon {
+    position: absolute;
+    right: 15px; /* Adjust this value for spacing */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Center vertically */
+    cursor: pointer; /* Change cursor to pointer */
+    color: #ddd; /* Color for the eye icon */
+}
+
+/* Change color when hovered */
+.eye-icon:hover {
+    color: #ffcc00; /* Change color on hover */
+}
+
+/* Keyframes Animations */
+
+/* Fade in and slide up animation */
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Start from below */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End at the original position */
+    }
+}
+
+/* Continuous pulse animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05); /* Slightly scale up */
+        opacity: 0.8; /* Slightly fade */
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1; /* Return to original */
+    }
+}
+
+/* Pulse Animation for Logo */
+@keyframes pulseLogo {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05); /* Scale up slightly */
+    }
+    100% {
+        transform: scale(1); /* Return to original size */
+    }
+}
+
+/* Left Section */
+.left-section, .right-section {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-section {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Animating h1 (Welcome Back!) */
+.left-section h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite; /* Continuous pulse animation */
+}
+
+/* Animating p (Sign in to continue your order) */
+.left-section p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #ccc;
+    animation: pulse 1.5s infinite; /* Continuous pulse animation */
+}
+
+/* Input Fields */
+.input-group {
+    width: 100%;
+    margin-bottom: 20px;
+    animation: fadeSlideIn 1s ease-in-out forwards; /* Slide and fade in */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-weight: bold;
+    animation: fadeSlideIn 1.3s ease-in-out forwards; /* Slight delay for label */
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #444;
+    border-radius: 30px;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #ffcc00;
+}
+
+/* Sign In, Sign Up, Social Buttons */
+.arrow-btn, .google-btn, .microsoft-btn, .signup-btn {
+    width: auto;
+    min-width: 200px;
+    padding: 12px 20px;
+    border: none;
+    background-color: #ffcc00;
+    color: #333;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px auto;
+    transition: transform 0.3s ease;
+    animation: fadeSlideIn 1.2s ease-in-out forwards; /* Fade in for buttons */
+}
+
+.arrow-btn:hover, .google-btn:hover, .microsoft-btn:hover, .signup-btn:hover {
+    background-color: #ffa500;
+    transform: translateY(-3px);
+}
+
+/* Alt Sign In Text */
+.alt-signin {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #ccc;
+    animation: fadeSlideIn 1.5s ease-in-out forwards; /* Simple fade-in */
+}
+
+/* Right Section */
+.right-section {
+    background-image: url('signinbg2.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 1.0;
+    color: black;
+    text-align: center;
+    padding: 40px;
+}
+
+/* New User Section Animations */
+/* New User Section Animations */
+/* New User Section Animations */
+.new-user-title {
+    color: #ffc400; /* Text color */
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 40px; /* Increased font size */
+    font-weight: bold; /* Make text bold */
+    animation: fadeSlideIn 1s ease-in-out forwards; /* Slide up and fade in */
+    text-shadow: 0 0 5px rgba(255, 196, 0, 0.8), /* Glow effect */
+                 0 0 10px rgba(255, 196, 0, 0.6),
+                 0 0 15px rgba(255, 196, 0, 0.4);
+}
+
+.signup-text {
+    margin-bottom: 40px;
+    font-size: 30px; /* Increased font size */
+    font-weight: bold; /* Make text bold */
+    color: #ffffff; /* Change text color to white */
+   
+}
+
+
+
+
+/* Social Button Styles */
+.google-btn, .microsoft-btn {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #ddd;
+    padding: 12px 0;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 5px auto;
+    display: flex;
+    align-items: center;
+    animation: fadeSlideIn 1.4s ease-in-out forwards; /* Fade in for social buttons */
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Image Styling */
+.logo {
+    width: 120px; /* Set width for the logo */
+    height: 120px; /* Set height to the same as width to keep it circular */
+    margin-bottom: 20px;
+    animation: pulseLogo 2s ease-in-out infinite; /* Continuous pulse animation */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    border-radius: 50%; /* Ensures the logo is circular */
+    overflow: hidden; /* Prevents overflow of content if any */
+}
+
+/* Hover effect for logo (optional) */
+.logo:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7); /* Increase shadow on hover */
+}
+
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+/* SRMIGGY Text */
+.container {
+    overflow: visible; /* Allow overflow for the text */
+    position: relative; /* This helps with positioning the text correctly */
+}
+
+/* SRMIGGY Text */
+.srmiggy-text {
+    writing-mode: vertical-rl; /* Set text direction to vertical */
+    text-align: center; /* Center the text vertically */
+    font-weight: bold; /* Make the text bold */
+    font-size: 80px; /* Large font size for visibility */
+    color: rgba(255, 204, 0, 0.8); /* Bright orange color with some transparency */
+    position: absolute; /* Position it absolutely */
+    left: -120px; /* Adjust position to the left, outside the container */
+    top: 50%; /* Center it vertically */
+    transform: translateY(-50%); /* Adjust vertical alignment */
+    z-index: -1; /* Ensure it's behind other elements */
+    text-shadow: 0 0 20px rgba(255, 204, 0, 1); /* Add glow effect */
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+    }
+
+    .left-section, .right-section {
+        padding: 20px;
+    }
+
+    .left-section h1, .right-section h2 {
+        font-size: 22px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .arrow-btn, .google-btn, .microsoft-btn, .signup-btn {
+        font-size: 14px;
+        padding: 10px 0; /* Keep padding consistent */
+    }
+
+    .srmiggy-text {
+        font-size: 24px; /* Adjust font size for smaller screens */
+    }
+}

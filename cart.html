@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRMIGGY - Cart</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('cartbg.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white;
+            min-height: 100vh;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        h1 {
+            color: orange;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px);
+        }
+        .cart {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin-top: -50px;
+            width: 400px;
+            text-align: center;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .item-buttons {
+            display: flex;
+            align-items: center;
+        }
+        button {
+            margin-left: 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: orange;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SRMIGGY - Cart</h1>
+    </header>
+
+    <div class="container">
+        <div id="cart" class="cart">
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <p id="totalAmount">Total: ₹0</p>
+
+            <!-- Payment Options -->
+            <h3>Select Payment Method</h3>
+            <select id="paymentMethod">
+                <option value="upi">UPI</option>
+                <option value="card">Credit/Debit Card</option>
+                <option value="cash">Cash on Delivery</option>
+            </select>
+
+            <button onclick="generateBill()">
+                <i class="fas fa-shopping-cart" style="margin-right: 5px;"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let totalAmount = 0;
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            cartItemsDiv.innerHTML = ''; // Clear previous items
+            totalAmount = 0; // Reset totalAmount for each update
+
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item'; // Apply item class for styling
+                itemDiv.innerHTML = `${item.name} x ${item.quantity} = ₹${item.price * item.quantity}`;
+
+                // Create a div for buttons
+                const buttonsDiv = document.createElement('div');
+                buttonsDiv.className = 'item-buttons';
+
+                // Create increase button
+                const increaseButton = document.createElement('button');
+                increaseButton.textContent = '+';
+                increaseButton.onclick = () => changeQuantity(index, 1);
+
+                // Create decrease button
+                const decreaseButton = document.createElement('button');
+                decreaseButton.textContent = '-';
+                decreaseButton.onclick = () => changeQuantity(index, -1);
+
+                buttonsDiv.appendChild(decreaseButton);
+                buttonsDiv.appendChild(increaseButton);
+                itemDiv.appendChild(buttonsDiv);
+                cartItemsDiv.appendChild(itemDiv);
+
+                totalAmount += item.price * item.quantity; // Calculate total amount
+            });
+
+            document.getElementById('totalAmount').textContent = `Total: ₹${totalAmount}`; // Update total amount
+        }
+
+        function changeQuantity(index, delta) {
+            if (delta > 0) {
+                cart[index].quantity += 1; // Increase quantity
+            } else if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1; // Decrease quantity
+            } else {
+                cart.splice(index, 1); // Remove item if quantity is 1 and decrease is pressed
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart)); // Update localStorage
+            updateCart(); // Refresh cart display
+        }
+
+        function generateBill() {
+            if (cart.length === 0) {
+                alert('Cart is empty!');
+                return;
+            }
+
+            const paymentMethod = document.getElementById('paymentMethod').value;
+
+            if (paymentMethod === 'cash') {
+                alert('Payment pending. Pay to get your order.');
+            }
+            if (paymentMethod === 'card') {
+                alert('OTP sent to your registered number. Getting Confirmation from Canteen Admin');
+            }
+            if (paymentMethod === 'upi') {
+                alert('QR sent to your registered number. Getting Confirmation from Canteen Admin');
+            }
+
+            localStorage.setItem('totalAmount', totalAmount);
+            window.location.href = 'confirmation.html'; // Redirect to confirmation page
+        }
+
+        updateCart(); // Initial cart update
+    </script>
+</body>
+</html>

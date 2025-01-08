@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin-signin.css">
+    <title>Admin Sign-In | SRMIGGY</title>
+</head>
+<body>
+    <div class="container">
+        <img src="srmlogo.png" alt="SRM Logo" class="logo">
+        <h1>Admin Sign-In</h1>
+        <div class="admin-image">
+            <img src="admin.jpg" alt="Admin" id="adminImage">
+        </div>
+        <form id="signinForm" class="signin-form" onsubmit="return validateCredentials(event)">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <div class="input-with-icon">
+                    <input type="text" id="username" name="username" required>
+                    <i class="eye-icon" id="toggleUsername" onclick="toggleUsernameVisibility()"></i>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-with-icon">
+                    <input type="password" id="password" name="password" required>
+                    <i class="eye-icon" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                </div>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+        </form>
+    </div>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("password");
+            const passwordToggle = document.getElementById("togglePassword");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordToggle.classList.add("visible");
+            } else {
+                passwordInput.type = "password";
+                passwordToggle.classList.remove("visible");
+            }
+        }
+
+        function toggleUsernameVisibility() {
+            const usernameInput = document.getElementById("username");
+            const usernameToggle = document.getElementById("toggleUsername");
+            if (usernameInput.type === "text") {
+                usernameInput.type = "password";
+                usernameToggle.classList.add("visible");
+            } else {
+                usernameInput.type = "text";
+                usernameToggle.classList.remove("visible");
+            }
+        }
+
+        function validateCredentials(event) {
+            event.preventDefault(); // Prevent the form from submitting
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Check credentials
+            if (username === "admin" && password === "yash") {
+                // Redirect to admin dashboard if credentials are correct
+                window.location.href = "http://localhost/CAS/admin-dashboard.html."; // Change this to your actual dashboard page
+            } else {
+                alert("Invalid username or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

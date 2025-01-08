@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRMIGGY - Canteen Automation</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('menuebg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-container button {
+            padding: 10px;
+            margin-left: 10px;
+            font-size: 16px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .search-container button:hover {
+            background-color: #ff9933;
+        }
+        .item {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SRMIGGY</h1>
+        <nav class="button-container">
+            <button class="button" onclick="window.location.href='index.html'">
+                <!-- Menu icon -->
+                <svg class="icon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>
+                </svg>
+            </button>
+            <button class="button" onclick="window.location.href='cart.html'">
+                <!-- Cart icon -->
+                <svg class="icon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </button>
+            <button class="button" onclick="window.location.href='team.html'">
+                <!-- Team icon -->
+                <svg class="icon" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2.5a5.5 5.5 0 0 1 3.096 10.047 9.005 9.005 0 0 1 5.9 8.181.75.75 0 1 1-1.499.044 7.5 7.5 0 0 0-14.993 0 .75.75 0 0 1-1.5-.045 9.005 9.005 0 0 1 5.9-8.18A5.5 5.5 0 0 1 12 2.5ZM8 8a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z"></path>
+                </svg>
+            </button>
+            <!-- Replaced Sign-In button with search functionality -->
+            <input type="text" id="searchBox" placeholder="Search for items..." onkeyup="searchItems()">
+        </nav>
+    </header>
+    
+
+    <div class="search-container">
+        <input type="text" id="search-bar" placeholder="Search for items...">
+        <button onclick="searchItems()">Search</button>
+    </div>
+
+    <div class="container">
+        <div id="menu" class="menu">
+            <h2>Explore Menu</h2>
+            <div class="grid-container">
+                <div class="item" data-name="Samosa">
+                    <img src="samosa.jpeg" alt="Samosa">
+                    <div>
+                        <span>Samosa</span>
+                        <p>₹20</p>
+                        <button onclick="addToCart('Samosa', 20)">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- More item blocks here (unchanged) -->
+                <div class="item" data-name="Puff">
+                    <img src="puff.jpeg" alt="Puff">
+                    <div>
+                        <span>Puff</span>
+                        <p>₹15</p>
+                        <button onclick="addToCart('Puff', 15)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="pavbhaji.jpeg" alt="Pav Bhaji">
+                    <div>
+                        <span>Pav Bhaji</span>
+                        <p>₹50</p>
+                        <button onclick="addToCart('Pav Bhaji', 50)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="dosa.jpeg" alt="Dosa">
+                    <div>
+                        <span>Dosa</span>
+                        <p>₹40</p>
+                        <button onclick="addToCart('Dosa', 40)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="pongal.jpeg" alt="Pongal">
+                    <div>
+                        <span>Pongal</span>
+                        <p>₹30</p>
+                        <button onclick="addToCart('Pongal', 30)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="coffee.jpeg" alt="Coffee">
+                    <div>
+                        <span>Coffee</span>
+                        <p>₹10</p>
+                        <button onclick="addToCart('Coffee', 10)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="tea.jpeg" alt="Tea">
+                    <div>
+                        <span>Tea</span>
+                        <p>₹10</p>
+                        <button onclick="addToCart('Tea', 10)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="chaat.jpeg" alt="Chaat">
+                    <div>
+                        <span>Chaat</span>
+                        <p>₹25</p>
+                        <button onclick="addToCart('Chaat', 25)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="biryani.jpeg" alt="Veg-Biryani">
+                    <div>
+                        <span>Veg-Biryani</span>
+                        <p>₹100</p>
+                        <button onclick="addToCart('Veg-Biryani', 100)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="noodles.jpeg" alt="Noodles">
+                    <div>
+                        <span>Noodles</span>
+                        <p>₹60</p>
+                        <button onclick="addToCart('Noodles', 60)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="icecream.jpeg" alt="Ice Cream">
+                    <div>
+                        <span>Ice Cream</span>
+                        <p>₹50</p>
+                        <button onclick="addToCart('Ice Cream', 50)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- New Items -->
+                <div class="item">
+                    <img src="south_indian_thali.jpeg" alt="South Indian Thali">
+                    <div>
+                        <span>South Indian Thali</span>
+                        <p>₹150</p>
+                        <button onclick="addToCart('South Indian Thali', 150)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="north_indian_thali.jpeg" alt="North Indian Thali">
+                    <div>
+                        <span>North Indian Thali</span>
+                        <p>₹180</p>
+                        <button onclick="addToCart('North Indian Thali', 180)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="deluxe_thali.jpeg" alt="Deluxe Thali">
+                    <div>
+                        <span>Deluxe Thali</span>
+                        <p>₹250</p>
+                        <button onclick="addToCart('Deluxe Thali', 250)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="poori_sabji.jpeg" alt="Poori Sabji">
+                    <div>
+                        <span>Poori Sabji</span>
+                        <p>₹80</p>
+                        <button onclick="addToCart('Poori Sabji', 80)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="paneer_platter.jpeg" alt="Paneer Platter">
+                    <div>
+                        <span>Paneer Platter</span>
+                        <p>₹120</p>
+                        <button onclick="addToCart('Paneer Platter', 120)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="chole_bhature.jpeg" alt="Chole Bhature">
+                    <div>
+                        <span>Chole Bhature</span>
+                        <p>₹90</p>
+                        <button onclick="addToCart('Chole Bhature', 90)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="lassi.jpeg" alt="Cold Coffee">
+                    <div>
+                        <span>lassi</span>
+                        <p>₹50</p>
+                        <button onclick="addToCart('Lassi', 50)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="dhokla.jpeg" alt="Dhokla">
+                    <div>
+                        <span>Dhokla</span>
+                        <p>₹30</p>
+                        <button onclick="addToCart('Dhokla', 30)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Additional New Items -->
+                <div class="item">
+                    <img src="spring_rolls.jpeg" alt="Spring Rolls">
+                    <div>
+                        <span>Spring Rolls</span>
+                        <p>₹40</p>
+                        <button onclick="addToCart('Spring Rolls', 40)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="bhel_puri.jpeg" alt="Bhel Puri">
+                    <div>
+                        <span>Bhel Puri</span>
+                        <p>₹30</p>
+                        <button onclick="addToCart('Bhel Puri', 30)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="rajma_chawal.jpeg" alt="Rajma Chawal">
+                    <div>
+                        <span>Rajma Chawal</span>
+                        <p>₹70</p>
+                        <button onclick="addToCart('Rajma Chawal', 70)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="pasta.jpeg" alt="Pasta">
+                    <div>
+                        <span>Pasta</span>
+                        <p>₹90</p>
+                        <button onclick="addToCart('Pasta', 90)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="sandwich.jpeg" alt="Sandwich">
+                    <div>
+                        <span>Sandwich</span>
+                        <p>₹50</p>
+                        <button onclick="addToCart('Sandwich', 50)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="momos.jpeg" alt="Momos">
+                    <div>
+                        <span>Momo</span>
+                        <p>₹60</p>
+                        <button onclick="addToCart('Momo', 60)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="fruit_salad.jpeg" alt="Fruit Salad">
+                    <div>
+                        <span>Fruit Salad</span>
+                        <p>₹40</p>
+                        <button onclick="addToCart('Fruit Salad', 40)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="pancakes.jpeg" alt="Pancakes">
+                    <div>
+                        <span>Pancakes</span>
+                        <p>₹70</p>
+                        <button onclick="addToCart('Pancakes', 70)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="cheesecake.jpeg" alt="Cheesecake">
+                    <div>
+                        <span>Cheesecake</span>
+                        <p>₹100</p>
+                        <button onclick="addToCart('Cheesecake', 100)">Add to Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+   
+    <script>
+        // Search function to filter menu items
+        function searchItems() {
+            const input = document.getElementById('searchBox').value.toLowerCase();
+            const items = document.querySelectorAll('.grid-container .item');
+            
+            items.forEach(function(item) {
+                const itemName = item.querySelector('div span').innerText.toLowerCase();
+                if (itemName.includes(input)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        function addToCart(item, price) {
+            console.log(`Added ${item} for ₹${price}`);
+        }
+    </script>
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>

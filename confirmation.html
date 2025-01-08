@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRMIGGY - Order Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Inline CSS for admin sign-in button */
+        .admin-signin {
+            position: absolute;
+            top: 5px;
+            right: 35px;
+            left: 1300px;
+        }
+
+        .btn-admin-signin {
+            display: inline-flex;
+            align-items: center;
+            background-color: #ff6600; /* Orange color */
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px; /* Adjusted for a normal button look */
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn-admin-signin i {
+            margin-left: 8px;
+            margin-right: 8px;
+            font-size: 18px;
+        }
+
+        .btn-admin-signin:hover {
+            background-color: #cc5200; /* Darker orange for hover */
+        }
+
+        /* Background image styling */
+        body {
+            background-color: #ffffff; /* Set the rest of the page to white */
+            background-image: url('confirmationbg.jpg'); /* Replace with the path to your background image */
+            background-size: 50%; /* Make the background image smaller */
+            background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+            background-position: right; /* Center the image */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start; /* Move content to the left */
+            align-items: flex-start; /* Move content to the top */
+        }
+
+        /* Transparent and top-left-aligned order confirmation tab */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* More transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+            width: 50%;
+            margin-left: -10px; /* Adjust spacing from left */
+            margin-top: 200px; /* Adjust spacing from top */
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        /* Styles for the ready time section as a note box */
+        .ready-time {
+            margin-top: 20px; /* Spacing above the ready time section */
+            background-color: #000000; /* Light background for the note box */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 8px; /* Rounded corners */
+            padding: 15px; /* Padding inside the note box */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>SRMIGGY - Order Confirmation</h1>
+        <!-- Admin Sign-in Button -->
+        <div class="admin-signin">
+            <a href="admin-signin.html" class="btn-admin-signin">
+                Admin Sign-in <i class="fas fa-user-shield"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="bill" class="bill">
+            <h2>Order Summary</h2>
+            <p>Order Number: <strong id="orderNumber"></strong></p>
+            <div id="orderDetails"></div>
+            <p>Total Amount: <strong id="totalAmount"></strong></p>
+            <p>Thank you for your order!</p>
+        </div>
+
+        <!-- New Section for Ready Time in a Note Box -->
+        <div id="readyTime" class="ready-time">
+            <h2 style="color: #ff6600;">Order Ready Time</h2> <!-- Orange color for heading -->
+            <p style="color: #4caf50;">Current Waiting Time: 10 Minutes</p> <!-- Green color -->
+            <p style="color: #2196F3;">Your order will be ready by: <strong id="readyByTime"></strong>. Please refer to order_id to get your order.</p> <!-- Blue color -->
+            <p style="color: #FF5722;">If not picked up by then, it will be ready again in 30 minutes at: <strong id="secondReadyByTime"></strong>.</p> <!-- Red color -->
+            <p style="color: #9E9E9E;">NOTE: A soft copy of the bill has been sent to your registered mail ID. If the order is not picked up at the second call, no refund will be initiated.</p> <!-- Gray color -->
+            <p style="color: #eeff00;">For any issue  E-mail:-  helpdesksrmiggy@srmist.edu.in  </p>
+        </div>
+
+        <!-- Button to Download PDF -->
+        <button id="downloadPdf" class="btn-admin-signin" style="margin-top: 20px;">
+            Download Bill <i class="fas fa-download"></i>
+        </button>
+    </div>
+
+    
+    <script>
+        // Get current time
+        const now = new Date();
+
+        // Calculate the ready time (10 minutes from now)
+        const readyTime = new Date(now.getTime() + 10 * 60000);
+        const readyByTime = readyTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Calculate the second ready time (30 minutes from the first ready time)
+        const secondReadyTime = new Date(readyTime.getTime() + 30 * 60000);
+        const secondReadyByTime = secondReadyTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Display the times in the HTML
+        document.getElementById('readyByTime').textContent = readyByTime;
+        document.getElementById('secondReadyByTime').textContent = secondReadyByTime;
+
+        // PDF generation logic
+        document.getElementById('downloadPdf').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+
+            // Create a new PDF document
+            const doc = new jsPDF();
+
+            // Add title
+            doc.setFontSize(20);
+            doc.text("Order Confirmation", 14, 22);
+
+            // Add order details
+            doc.setFontSize(16);
+            doc.text(`Order Number: ${document.getElementById('orderNumber').textContent}`, 14, 40);
+            doc.text(`Total Amount: ${document.getElementById('totalAmount').textContent}`, 14, 50);
+            
+            // Add order ready time details
+            doc.text("Order Ready Time:", 14, 70);
+            doc.setFontSize(14);
+            doc.text(`Current Waiting Time: 10 Minutes`, 14, 80);
+            doc.text(`Your order will be ready by: ${document.getElementById('readyByTime').textContent}`, 14, 90);
+            doc.text(`If not picked up by then, it will be ready again in 30 minutes at: ${document.getElementById('secondReadyByTime').textContent}`, 14, 100);
+            doc.text("NOTE: A soft copy of the bill has been sent to your registered mail ID.", 14, 110);
+
+            // Save the PDF
+            doc.save('order_confirmation.pdf');
+        });
+    </script>
+    <script src="confirmation.js"></script>
+</body>
+</html>
